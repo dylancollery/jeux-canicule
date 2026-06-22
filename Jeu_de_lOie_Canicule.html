@@ -4,13 +4,34 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>🎲 Jeu de l'Oie</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--cell:80px;--gap:3px;--bg:#0b1221;--card:#17243a;--sb:162px}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;overflow:hidden}
 body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:#f0f6ff;display:flex;flex-direction:column}
-#hdr{height:44px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(90deg,#0c1628,#17243a,#0c1628);border-bottom:1px solid #1e3354;font-size:1.05rem;font-weight:800}
-#hdr span{background:linear-gradient(90deg,#f59e0b,#ef4444,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+#hdr{
+  height:52px;flex-shrink:0;display:flex;align-items:center;gap:12px;
+  padding:0 20px;
+  background:#FEFAF2;
+  border-top:4px solid #AD5804;
+  border-bottom:1px solid #E0D0B8;
+  font-size:1.05rem;font-weight:800;
+}
+#hdr a{
+  color:#AD5804;text-decoration:none;font-size:.82rem;font-weight:700;
+  font-family:'DM Sans','Segoe UI',sans-serif;
+  white-space:nowrap;
+}
+#hdr a:hover{opacity:.72;}
+#hdr span{
+  font-family:'Bebas Neue','Segoe UI',sans-serif;
+  font-size:1.5rem;letter-spacing:.06em;
+  flex:1;text-align:center;
+  background:none;-webkit-background-clip:unset;-webkit-text-fill-color:#1A1208;
+  color:#1A1208;
+}
 #setup{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:16px;overflow-y:auto}
 #setup h1{font-size:2.3rem;background:linear-gradient(135deg,#f59e0b,#ff6b35);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-align:center}
 .card{background:var(--card);border-radius:18px;padding:22px 26px;max-width:480px;width:100%;box-shadow:0 8px 40px rgba(0,0,0,.5);border:1px solid #1e3354}
@@ -96,7 +117,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:#f0f6ff;
 </style>
 </head>
 <body>
-<div id="hdr"><a href="Portail_Canicule.html" style="color:#f0f6ff;text-decoration:none;font-size:.8rem;padding:4px 12px;background:rgba(255,255,255,.1);border-radius:8px;border:1px solid rgba(255,255,255,.2);margin-right:12px;">← Portail</a><span>🎲 JEU DE L'OIE</span></div>
+<div id="hdr"><a href="Portail_Canicule.html">← Portail</a><span>🎲 JEU DE L'OIE</span></div>
 
 <div id="setup">
   <h1>🎲 Jeu de l'Oie</h1>
