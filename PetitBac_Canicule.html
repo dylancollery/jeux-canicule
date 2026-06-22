@@ -4,80 +4,137 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Petit Bac</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;overflow:hidden}
-body{font-family:'DM Sans','Segoe UI',sans-serif;background:#0f0f23;color:#fff;display:flex;flex-direction:column}
+body{
+  font-family:'DM Sans','Segoe UI',sans-serif;
+  background:#0E0E1A;color:#F0EEFF;display:flex;flex-direction:column;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ── HEADER (light) ── */
 #hdr{
   height:52px;flex-shrink:0;display:flex;align-items:center;gap:12px;padding:0 20px;
-  background:#FEFAF2;
-  border-top:4px solid #6B21A8;
-  border-bottom:1px solid #E0D0B8;
+  background:#FEFAF2;border-top:4px solid #6B21A8;border-bottom:1px solid #E0D0B8;
 }
 #hdr a{
   color:#6B21A8;text-decoration:none;font-size:.82rem;font-weight:700;
-  font-family:'DM Sans','Segoe UI',sans-serif;
-  display:flex;align-items:center;gap:5px;white-space:nowrap;
+  font-family:'DM Sans','Segoe UI',sans-serif;display:flex;align-items:center;gap:5px;white-space:nowrap;
 }
 #hdr a:hover{opacity:.72;}
 #hdr h1{
-  font-family:'Bebas Neue','Segoe UI',sans-serif;
-  font-size:1.5rem;letter-spacing:.06em;
-  flex:1;text-align:center;
-  color:#1A1208;
-  background:none;-webkit-background-clip:unset;-webkit-text-fill-color:#1A1208;
+  font-family:'Bebas Neue','Segoe UI',sans-serif;font-size:1.5rem;letter-spacing:.06em;
+  flex:1;text-align:center;color:#1A1208;background:none;-webkit-background-clip:unset;-webkit-text-fill-color:#1A1208;
 }
-#tab-nav{display:flex;flex-shrink:0;background:#0a0a18;border-bottom:1px solid #1e3354}
-.tnav{flex:1;padding:11px 4px;border:none;background:transparent;color:#64748b;font-size:.92rem;font-weight:700;cursor:pointer;border-bottom:3px solid transparent;transition:.2s;letter-spacing:.01em}
-.tnav.on{color:#fff;border-bottom-color:#f59e0b}
-.sec{display:none;flex:1;overflow-y:auto;flex-direction:column;align-items:center;padding:16px;gap:14px}
+
+/* ── TABS ── */
+#tab-nav{
+  display:flex;flex-shrink:0;background:#0A0A1A;padding:8px 12px;gap:6px;
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.tnav{
+  flex:1;padding:10px 4px;border:none;background:transparent;
+  color:rgba(255,255,255,.28);
+  font-family:'Bebas Neue','Segoe UI',sans-serif;font-size:16px;letter-spacing:.1em;
+  cursor:pointer;border-radius:10px;transition:all .2s;
+}
+.tnav:hover{color:rgba(255,255,255,.6);}
+.tnav.on{color:#F0EEFF;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);}
+
+/* ── SECTIONS ── */
+.sec{display:none;flex:1;overflow-y:auto;flex-direction:column;align-items:center;padding:20px;gap:16px}
 .sec.on{display:flex}
 
 /* ── POINTS ── */
-.teams-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:100%;max-width:560px}
-.tc{background:linear-gradient(160deg,#1a1a2e,#16213e);border-radius:14px;padding:14px 12px;border:2px solid;display:flex;flex-direction:column;align-items:center;gap:8px}
+.teams-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;width:100%;max-width:580px}
+.tc{
+  background:#14142A;border-radius:18px;padding:18px 14px;border:2px solid;
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  box-shadow:0 4px 24px rgba(0,0,0,.3);
+}
 .tdot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
-.tname{font-size:.9rem;font-weight:800;cursor:text;padding:2px 6px;border-radius:5px;border:1px solid transparent;background:transparent;color:inherit;text-align:center;outline:none;min-width:60px;max-width:120px}
-.tname:hover{border-color:#555}
-.tname:focus{border-color:#3b82f6;background:#0d0d20}
-.tscore{font-size:3rem;font-weight:900;line-height:1}
-.sbtns{display:flex;gap:10px}
-.sb{width:40px;height:40px;border-radius:50%;border:none;font-size:1.3rem;font-weight:900;cursor:pointer;transition:.15s;display:flex;align-items:center;justify-content:center}
-.sb:active{transform:scale(.9)}
-.sbp{background:#22c55e;color:#fff}
-.sbm{background:#ef4444;color:#fff}
-.btn-sec{background:#1e293b;color:#94a3b8;border:1px solid #334;border-radius:9px;padding:9px 22px;font-size:.85rem;font-weight:700;cursor:pointer;transition:.2s}
-.btn-sec:hover{background:#334155;color:#fff}
+.tname{
+  font-size:.9rem;font-weight:700;cursor:text;padding:2px 8px;border-radius:6px;
+  border:1px solid transparent;background:transparent;color:inherit;text-align:center;
+  outline:none;min-width:60px;max-width:120px;font-family:'DM Sans',sans-serif;
+}
+.tname:hover{border-color:rgba(255,255,255,.2);}
+.tname:focus{border-color:rgba(255,255,255,.4);background:rgba(255,255,255,.04);}
+.tscore{font-family:'Bebas Neue',sans-serif;font-size:5.5rem;line-height:1;}
+.sbtns{display:flex;gap:12px;}
+.sb{
+  width:44px;height:44px;border-radius:50%;border:none;font-size:1.4rem;font-weight:900;
+  cursor:pointer;transition:.15s;display:flex;align-items:center;justify-content:center;
+}
+.sb:active{transform:scale(.88);}
+.sbp{background:#22C55E;color:#fff}
+.sbm{background:#EF4444;color:#fff}
+.btn-sec{
+  background:rgba(255,255,255,.06);color:rgba(255,255,255,.5);
+  border:1px solid rgba(255,255,255,.09);border-radius:10px;
+  padding:10px 24px;font-size:.84rem;font-weight:700;cursor:pointer;transition:.2s;
+  font-family:'DM Sans',sans-serif;
+}
+.btn-sec:hover{background:rgba(255,255,255,.1);color:#fff}
 
 /* ── ROUE ── */
-#roue-wrap{display:flex;flex-direction:column;align-items:center;gap:10px;width:100%;max-width:440px}
+#roue-wrap{display:flex;flex-direction:column;align-items:center;gap:12px;width:100%;max-width:440px}
 #wcanvas{display:block}
-#chosen-ltr{font-size:5rem;font-weight:900;color:#f1c40f;text-shadow:0 4px 28px rgba(241,196,15,.55);min-height:80px;display:flex;align-items:center;justify-content:center;line-height:1}
-.roue-btns{display:flex;gap:10px}
-.btn-spin{background:linear-gradient(135deg,#f59e0b,#e74c3c);color:#fff;border:none;border-radius:13px;padding:12px 32px;font-size:.95rem;font-weight:900;cursor:pointer;transition:.2s}
-.btn-spin:hover:not(:disabled){filter:brightness(1.15);transform:scale(1.04)}
-.btn-spin:disabled{opacity:.38;cursor:not-allowed}
-.btn-rspin{background:#1e293b;color:#94a3b8;border:1px solid #334;border-radius:13px;padding:12px 18px;font-size:.95rem;font-weight:900;cursor:pointer;transition:.2s}
-.btn-rspin:hover{background:#334155;color:#fff}
+#chosen-ltr{
+  font-family:'Bebas Neue',sans-serif;font-size:6rem;color:#F5C842;
+  text-shadow:0 4px 32px rgba(245,200,66,.45);
+  min-height:88px;display:flex;align-items:center;justify-content:center;line-height:1;
+}
+.roue-btns{display:flex;gap:10px;}
+.btn-spin{
+  background:linear-gradient(135deg,#F59E0B,#EF4444);color:#fff;border:none;
+  border-radius:14px;padding:13px 36px;
+  font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.08em;
+  cursor:pointer;transition:.2s;
+}
+.btn-spin:hover:not(:disabled){filter:brightness(1.12);transform:scale(1.03)}
+.btn-spin:disabled{opacity:.35;cursor:not-allowed}
+.btn-rspin{
+  background:rgba(255,255,255,.06);color:rgba(255,255,255,.45);
+  border:1px solid rgba(255,255,255,.09);border-radius:14px;padding:13px 20px;
+  font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.08em;
+  cursor:pointer;transition:.2s;
+}
+.btn-rspin:hover{background:rgba(255,255,255,.1);color:#fff}
 #lgrid{display:flex;flex-wrap:wrap;gap:5px;justify-content:center;max-width:420px}
-.ll{width:34px;height:34px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:.95rem;font-weight:900;transition:.4s;border:2px solid}
-.ll.avail{background:#1a1a2e;border-color:#2a3a5a;color:#e2e8f0}
-.ll.used{background:#1a1a2e;border-color:#1e2035;color:#2d3055;text-decoration:line-through}
-#roue-msg{font-size:.8rem;color:#64748b;text-align:center;min-height:18px}
+.ll{
+  width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;
+  font-family:'Bebas Neue',sans-serif;font-size:16px;font-weight:900;transition:.4s;border:2px solid;
+}
+.ll.avail{background:#14142A;border-color:rgba(255,255,255,.12);color:#F0EEFF}
+.ll.used{background:#0E0E1A;border-color:rgba(255,255,255,.04);color:rgba(255,255,255,.15);text-decoration:line-through}
+#roue-msg{font-size:.82rem;color:rgba(255,255,255,.28);text-align:center;min-height:20px;font-family:'DM Sans',sans-serif;}
 
 /* ── CHRONO ── */
-#chrono-wrap{display:flex;flex-direction:column;align-items:center;gap:20px;width:100%;max-width:340px;padding-top:8px}
+#chrono-wrap{display:flex;flex-direction:column;align-items:center;gap:22px;width:100%;max-width:340px;padding-top:10px}
 .ring-box{position:relative;display:flex;align-items:center;justify-content:center}
 #ring-svg{display:block}
 #ttext{position:absolute;text-align:center;pointer-events:none;user-select:none}
-#tnum{font-size:3.8rem;font-weight:900;line-height:1}
-#tstat{font-size:.8rem;color:#94a3b8;margin-top:6px}
+#tnum{font-family:'Bebas Neue',sans-serif;font-size:4.2rem;font-weight:900;line-height:1;letter-spacing:.04em}
+#tstat{font-size:.82rem;color:rgba(255,255,255,.38);margin-top:8px;font-family:'DM Sans',sans-serif}
 .chrono-btns{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
-.btn-go{background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff;border:none;border-radius:13px;padding:13px 36px;font-size:.95rem;font-weight:900;cursor:pointer;transition:.2s;min-width:150px}
+.btn-go{
+  background:linear-gradient(135deg,#22C55E,#16A34A);color:#fff;border:none;
+  border-radius:14px;padding:14px 40px;
+  font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.08em;
+  cursor:pointer;transition:.2s;min-width:160px;
+}
 .btn-go:hover{filter:brightness(1.1)}
-.btn-go.paused{background:linear-gradient(135deg,#f59e0b,#d97706)}
-.btn-creset{background:#1e293b;color:#94a3b8;border:1px solid #334;border-radius:13px;padding:13px 18px;font-size:.95rem;font-weight:900;cursor:pointer;transition:.2s}
-.btn-creset:hover{background:#334155;color:#fff}
+.btn-go.paused{background:linear-gradient(135deg,#F59E0B,#D97706)}
+.btn-creset{
+  background:rgba(255,255,255,.06);color:rgba(255,255,255,.5);
+  border:1px solid rgba(255,255,255,.09);border-radius:14px;padding:14px 20px;
+  font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.08em;cursor:pointer;transition:.2s;
+}
+.btn-creset:hover{background:rgba(255,255,255,.1);color:#fff}
 </style>
 </head>
 <body>

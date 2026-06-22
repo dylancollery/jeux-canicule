@@ -7,91 +7,174 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
+/* ── RESET ── */
 *{box-sizing:border-box;margin:0;padding:0;}
-:root{--bg:#0d1a0f;--bg2:#111f14;--border:rgba(255,255,255,.12);--muted:rgba(255,255,255,.4);}
-body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:#fff;min-height:100vh;display:flex;flex-direction:column;}
+:root{
+  --bg:#0E0E1A;--border:rgba(255,255,255,.1);--muted:rgba(255,255,255,.38);
+  --accent:#1642A8;
+}
+body{
+  font-family:'DM Sans','Segoe UI',sans-serif;
+  background:var(--bg);color:#F0EEFF;
+  min-height:100vh;display:flex;flex-direction:column;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ── SCREENS ── */
 .screen{display:none;flex-direction:column;flex:1;}
 .screen.on{display:flex;}
-#s-home{align-items:center;justify-content:center;gap:28px;padding:30px 20px;}
-#s-home h1{font-size:28pt;font-weight:900;text-align:center;color:#f1c40f;text-shadow:0 2px 16px rgba(241,196,15,.3);}
-#s-home p{color:var(--muted);font-size:11pt;text-align:center;}
-#s-cycle{align-items:center;justify-content:center;gap:24px;padding:30px 20px;}
-#s-cycle h2{font-size:18pt;font-weight:bold;color:#f1c40f;text-align:center;}
+
+/* ── HOME SCREEN ── */
+#s-home{
+  align-items:center;justify-content:center;gap:30px;padding:30px 20px;
+  background:linear-gradient(160deg,#0E0E1A 0%,#0A1228 100%);
+}
+#s-home h1{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(52px,10vw,88px);letter-spacing:.04em;
+  text-align:center;line-height:.92;
+  background:linear-gradient(135deg,#F5C842,#F59E0B);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  text-shadow:none;
+}
+#s-home h1 span{
+  font-family:'DM Sans',sans-serif;font-size:.32em;font-weight:400;
+  -webkit-text-fill-color:rgba(255,255,255,.42);letter-spacing:.04em;display:block;
+}
+#s-home p{color:var(--muted);font-size:11pt;text-align:center;max-width:400px;line-height:1.6;}
+
+/* ── CYCLE/MAT SELECTION ── */
+#s-cycle,#s-mat{align-items:center;justify-content:center;gap:24px;padding:30px 20px;}
+#s-cycle h2,#s-mat h2{
+  font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,5vw,40px);
+  letter-spacing:.06em;color:#F5C842;text-align:center;
+}
 .cycle-grid{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;}
-.cycle-card{width:200px;border:2px solid transparent;border-radius:14px;padding:22px 16px;text-align:center;cursor:pointer;transition:.22s;display:flex;flex-direction:column;gap:10px;}
-.cycle-card:hover{transform:translateY(-5px);filter:brightness(1.15);}
+.cycle-card{
+  width:200px;border:2px solid transparent;border-radius:18px;
+  padding:26px 16px;text-align:center;cursor:pointer;
+  transition:all .22s cubic-bezier(.34,1.56,.64,1);
+  display:flex;flex-direction:column;gap:10px;
+  box-shadow:0 6px 30px rgba(0,0,0,.35);
+}
+.cycle-card:hover{transform:translateY(-6px) scale(1.02);filter:brightness(1.12);}
 .cycle-card .cy-emoji{font-size:38pt;}
-.cycle-card .cy-title{font-weight:900;font-size:13pt;}
-.cycle-card .cy-sub{font-size:8.5pt;opacity:.75;line-height:1.4;}
+.cycle-card .cy-title{font-family:'Bebas Neue',sans-serif;letter-spacing:.06em;font-size:1.2rem;}
+.cycle-card .cy-sub{font-size:8.5pt;opacity:.72;line-height:1.4;font-family:'DM Sans',sans-serif;}
 .c2d{background:linear-gradient(135deg,#1a4a7a,#2471a3);border-color:#3498db;}
 .c2f{background:linear-gradient(135deg,#1a5c38,#27ae60);border-color:#2ecc71;}
 .c3{background:linear-gradient(135deg,#4a1a7a,#8e44ad);border-color:#9b59b6;}
-#s-mat{align-items:center;justify-content:center;gap:24px;padding:30px 20px;}
-#s-mat h2{font-size:18pt;font-weight:bold;color:#f1c40f;text-align:center;}
 .mat-grid{display:flex;gap:20px;flex-wrap:wrap;justify-content:center;}
-.mat-card{width:220px;border:2px solid transparent;border-radius:14px;padding:26px 16px;text-align:center;cursor:pointer;transition:.22s;}
-.mat-card:hover{transform:translateY(-5px);filter:brightness(1.12);}
+.mat-card{
+  width:220px;border:2px solid transparent;border-radius:18px;
+  padding:30px 16px;text-align:center;cursor:pointer;
+  transition:all .22s cubic-bezier(.34,1.56,.64,1);
+  box-shadow:0 6px 30px rgba(0,0,0,.35);
+}
+.mat-card:hover{transform:translateY(-6px) scale(1.02);filter:brightness(1.12);}
 .mat-card .m-emoji{font-size:44pt;}
-.mat-card .m-title{font-weight:900;font-size:14pt;margin-top:10px;}
-.mat-card .m-sub{font-size:9pt;opacity:.75;margin-top:4px;}
+.mat-card .m-title{font-family:'Bebas Neue',sans-serif;letter-spacing:.06em;font-size:1.3rem;margin-top:10px;}
+.mat-card .m-sub{font-size:9pt;opacity:.72;margin-top:4px;font-family:'DM Sans',sans-serif;}
 .m-fr{background:linear-gradient(135deg,#1a2a6c,#2563eb);border-color:#3b82f6;}
 .m-ma{background:linear-gradient(135deg,#6c1a1a,#dc2626);border-color:#ef4444;}
+
+/* ── QUIZ SCREEN ── */
 #s-quiz{flex-direction:column;}
 .quiz-header{
-  background:#FEFAF2;
-  border-top:4px solid #1642A8;
-  border-bottom:1px solid #E0D0B8;
-  padding:10px 20px;
-  display:flex;align-items:center;gap:14px;
+  background:#FEFAF2;border-top:4px solid #1642A8;border-bottom:1px solid #E0D0B8;
+  padding:10px 20px;display:flex;align-items:center;gap:14px;
 }
 .quiz-header h1{
-  font-family:'Bebas Neue','Segoe UI',sans-serif;
-  font-size:1.5rem;letter-spacing:.06em;
-  flex:1;color:#1A1208;
-  background:none;-webkit-text-fill-color:#1A1208;
+  font-family:'Bebas Neue','Segoe UI',sans-serif;font-size:1.5rem;letter-spacing:.06em;
+  flex:1;color:#1A1208;background:none;-webkit-text-fill-color:#1A1208;
 }
-.quiz-progress{font-size:10pt;color:var(--muted);}
-.quiz-score-display{background:rgba(22,66,168,.1);border:1px solid rgba(22,66,168,.28);border-radius:6px;padding:4px 12px;font-size:11pt;font-weight:bold;color:#1642A8;}
+.quiz-progress{font-size:10pt;color:#7B6A52;font-family:'DM Sans',sans-serif;}
+.quiz-score-display{
+  background:rgba(22,66,168,.1);border:1px solid rgba(22,66,168,.28);
+  border-radius:8px;padding:5px 14px;font-weight:700;color:#1642A8;
+  font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:.06em;
+}
 .quiz-main{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;gap:18px;}
-.question-card{width:100%;max-width:700px;background:#111f14;border:2px solid var(--border);border-radius:16px;padding:28px 26px;position:relative;min-height:200px;display:flex;flex-direction:column;justify-content:center;}
-.q-type{font-size:8.5pt;font-weight:bold;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;opacity:.65;}
-.q-text{font-size:17pt;font-weight:700;line-height:1.5;white-space:pre-wrap;color:#f0fdf4;}
-.answer-card{width:100%;max-width:700px;background:#1a3a1f;border:2px solid #27ae60;border-radius:14px;padding:22px 24px;display:none;}
-.answer-card.show{display:block;}
-.a-label{font-size:8.5pt;font-weight:bold;color:#2ecc71;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px;}
-.a-text{font-size:15pt;font-weight:700;color:#86efac;white-space:pre-wrap;line-height:1.5;}
-.a-tip{font-size:9.5pt;color:rgba(134,239,172,.7);margin-top:8px;font-style:italic;}
-.timer-zone{width:100%;max-width:700px;}
+.question-card{
+  width:100%;max-width:720px;
+  background:#12122A;border:2px solid rgba(255,255,255,.07);border-radius:20px;
+  padding:32px 30px;position:relative;min-height:200px;display:flex;flex-direction:column;justify-content:center;
+  box-shadow:0 12px 60px rgba(0,0,0,.4);
+}
+.q-type{
+  font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  margin-bottom:12px;color:rgba(255,255,255,.3);font-family:'DM Sans',sans-serif;
+}
+.q-text{font-size:17pt;font-weight:700;line-height:1.5;white-space:pre-wrap;color:#F0EEFF;}
+.answer-card{
+  width:100%;max-width:720px;
+  background:rgba(16,185,129,.08);border:2px solid rgba(16,185,129,.28);
+  border-radius:18px;padding:24px 28px;display:none;
+  box-shadow:0 8px 40px rgba(0,0,0,.3);
+}
+.answer-card.show{display:block;animation:ansIn .25s ease;}
+@keyframes ansIn{from{transform:scale(.94);opacity:0;}to{transform:scale(1);opacity:1;}}
+.a-label{font-size:10px;font-weight:700;color:#6EE7B7;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;font-family:'DM Sans',sans-serif;}
+.a-text{font-size:15pt;font-weight:700;color:#86EFAC;white-space:pre-wrap;line-height:1.5;}
+.a-tip{font-size:9.5pt;color:rgba(134,239,172,.62);margin-top:8px;font-style:italic;}
+
+/* ── TIMER ── */
+.timer-zone{width:100%;max-width:720px;}
 .timer-row{display:flex;align-items:center;gap:12px;}
-.tbar-bg{flex:1;background:#0a140b;border-radius:10px;height:18px;overflow:hidden;border:1px solid var(--border);}
-.tbar{height:100%;border-radius:10px;transition:width .2s linear;}
+.tbar-bg{flex:1;background:rgba(255,255,255,.05);border-radius:100px;height:8px;overflow:hidden;border:none;}
+.tbar{height:100%;border-radius:100px;transition:width .2s linear;}
 .tbar.green{background:linear-gradient(90deg,#16a34a,#4ade80);}
 .tbar.orange{background:linear-gradient(90deg,#d97706,#fbbf24);}
 .tbar.red{background:linear-gradient(90deg,#dc2626,#f87171);animation:pulse-r .5s infinite alternate;}
 @keyframes pulse-r{from{opacity:1;}to{opacity:.6;}}
-.tnum{font-size:22pt;font-weight:900;min-width:50px;text-align:center;}
-.tnum.urgent{color:#ef4444;}
-.quiz-controls{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;max-width:700px;}
-.btn{padding:11px 24px;border:none;border-radius:10px;font-weight:bold;font-size:11pt;cursor:pointer;transition:.2s;}
-.btn:hover{filter:brightness(1.15);}
-.btn-reveal{background:#f39c12;color:#fff;}
-.btn-start{background:#27ae60;color:#fff;}
-.btn-next{background:#2563eb;color:#fff;}
-.btn-back{background:#374151;color:#fff;font-size:9pt;padding:8px 14px;}
-#s-end{align-items:center;justify-content:center;gap:20px;padding:30px;}
-.end-title{font-size:30pt;font-weight:900;color:#f1c40f;text-align:center;}
-.end-score{font-size:22pt;font-weight:bold;text-align:center;}
-.end-msg{font-size:13pt;color:var(--muted);text-align:center;}
-.btn-restart{background:linear-gradient(135deg,#d97706,#f59e0b);color:#fff;font-size:13pt;padding:14px 36px;border-radius:14px;border:none;cursor:pointer;font-weight:900;}
+.tnum{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(44px,6vw,64px);line-height:.9;letter-spacing:.04em;
+  min-width:62px;text-align:center;
+}
+.tnum.urgent{color:#EF4444;}
+
+/* ── CONTROLS ── */
+.quiz-controls{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;max-width:720px;}
+.btn{
+  padding:12px 26px;border:none;border-radius:12px;
+  font-family:'Bebas Neue',sans-serif;font-size:19px;letter-spacing:.08em;
+  cursor:pointer;transition:filter .15s,transform .12s;
+}
+.btn:hover{filter:brightness(1.12);}
+.btn:active{transform:scale(.95);}
+.btn-reveal{background:#F59E0B;color:#fff;}
+.btn-start{background:#22C55E;color:#fff;}
+.btn-next{background:#2563EB;color:#fff;}
+.btn-back{
+  background:rgba(255,255,255,.07);color:rgba(255,255,255,.55);
+  border:1px solid rgba(255,255,255,.1);font-size:14px;padding:8px 16px;
+  font-family:'DM Sans',sans-serif;font-weight:700;letter-spacing:.02em;
+}
+
+/* ── END SCREEN ── */
+#s-end{align-items:center;justify-content:center;gap:22px;padding:30px;}
+.end-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(48px,8vw,72px);letter-spacing:.04em;color:#F5C842;text-align:center;
+}
+.end-score{font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,5vw,44px);letter-spacing:.04em;text-align:center;}
+.end-msg{font-size:12pt;color:var(--muted);text-align:center;max-width:400px;line-height:1.5;}
+.btn-restart{
+  background:linear-gradient(135deg,#D97706,#F59E0B);color:#fff;
+  font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.08em;
+  padding:15px 42px;border-radius:15px;border:none;cursor:pointer;transition:.2s;
+}
+.btn-restart:hover{filter:brightness(1.1);transform:scale(1.03);}
 .bank-info{font-size:9pt;color:var(--muted);text-align:center;}
 </style>
 </head>
 <body>
 
 <div class="screen on" id="s-home">
-  <h1>🧠 Quiz Ardoise<br><span style="font-size:.55em;font-weight:400;color:rgba(255,255,255,.6);">Révisions par cycles</span></h1>
+  <h1>Quiz Ardoise<span>Révisions par cycles</span></h1>
   <p>Choisissez votre niveau puis la matière.<br>Chaque élève répond sur ardoise et la lève au signal !</p>
-  <button class="btn btn-start" style="font-size:14pt;padding:16px 40px;border-radius:14px;" onclick="show('s-cycle')">🎯 Commencer</button>
+  <button class="btn btn-start" style="font-size:20px;padding:15px 44px;border-radius:14px;" onclick="show('s-cycle')">🎯 COMMENCER</button>
   <button class="btn btn-back" onclick="window.location='Portail_Canicule.html'">← Retour au portail</button>
 </div>
 
