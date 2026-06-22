@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Petit Bac</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#0f0f23;color:#fff;display:flex;flex-direction:column}
+#hdr{height:48px;flex-shrink:0;display:flex;align-items:center;gap:10px;padding:0 16px;background:linear-gradient(90deg,#0c1628,#17243a,#0c1628);border-bottom:1px solid #1e3354}
+#hdr a{color:#94a3b8;text-decoration:none;font-size:.78rem;padding:4px 10px;border:1px solid #334;border-radius:8px;white-space:nowrap}
+#hdr h1{font-size:1.05rem;font-weight:900;background:linear-gradient(90deg,#f59e0b,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;flex:1;text-align:center}
+#tab-nav{display:flex;flex-shrink:0;background:#0a0a18;border-bottom:1px solid #1e3354}
+.tnav{flex:1;padding:11px 4px;border:none;background:transparent;color:#64748b;font-size:.92rem;font-weight:700;cursor:pointer;border-bottom:3px solid transparent;transition:.2s;letter-spacing:.01em}
+.tnav.on{color:#fff;border-bottom-color:#f59e0b}
+.sec{display:none;flex:1;overflow-y:auto;flex-direction:column;align-items:center;padding:16px;gap:14px}
+.sec.on{display:flex}
+
+/* ── POINTS ── */
+.teams-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:100%;max-width:560px}
+.tc{background:linear-gradient(160deg,#1a1a2e,#16213e);border-radius:14px;padding:14px 12px;border:2px solid;display:flex;flex-direction:column;align-items:center;gap:8px}
+.tdot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
+.tname{font-size:.9rem;font-weight:800;cursor:text;padding:2px 6px;border-radius:5px;border:1px solid transparent;background:transparent;color:inherit;text-align:center;outline:none;min-width:60px;max-width:120px}
+.tname:hover{border-color:#555}
+.tname:focus{border-color:#3b82f6;background:#0d0d20}
+.tscore{font-size:3rem;font-weight:900;line-height:1}
+.sbtns{display:flex;gap:10px}
+.sb{width:40px;height:40px;border-radius:50%;border:none;font-size:1.3rem;font-weight:900;cursor:pointer;transition:.15s;display:flex;align-items:center;justify-content:center}
+.sb:active{transform:scale(.9)}
+.sbp{background:#22c55e;color:#fff}
+.sbm{background:#ef4444;color:#fff}
+.btn-sec{background:#1e293b;color:#94a3b8;border:1px solid #334;border-radius:9px;padding:9px 22px;font-size:.85rem;font-weight:700;cursor:pointer;transition:.2s}
+.btn-sec:hover{background:#334155;color:#fff}
+
+/* ── ROUE ── */
+#roue-wrap{display:flex;flex-direction:column;align-items:center;gap:10px;width:100%;max-width:440px}
+#wcanvas{display:block}
+#chosen-ltr{font-size:5rem;font-weight:900;color:#f1c40f;text-shadow:0 4px 28px rgba(241,196,15,.55);min-height:80px;display:flex;align-items:center;justify-content:center;line-height:1}
+.roue-btns{display:flex;gap:10px}
+.btn-spin{background:linear-gradient(135deg,#f59e0b,#e74c3c);color:#fff;border:none;border-radius:13px;padding:12px 32px;font-size:.95rem;font-weight:900;cursor:pointer;transition:.2s}
+.btn-spin:hover:not(:disabled){filter:brightness(1.15);transform:scale(1.04)}
+.btn-spin:disabled{opacity:.38;cursor:not-allowed}
+.btn-rspin{background:#1e293b;color:#94a3b8;border:1px solid #334;border-radius:13px;padding:12px 18px;font-size:.95rem;font-weight:900;cursor:pointer;transition:.2s}
+.btn-rspin:hover{background:#334155;color:#fff}
+#lgrid{display:flex;flex-wrap:wrap;gap:5px;justify-content:center;max-width:420px}
+.ll{width:34px;height:34px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:.95rem;font-weight:900;transition:.4s;border:2px solid}
+.ll.avail{background:#1a1a2e;border-color:#2a3a5a;color:#e2e8f0}
+.ll.used{background:#1a1a2e;border-color:#1e2035;color:#2d3055;text-decoration:line-through}
+#roue-msg{font-size:.8rem;color:#64748b;text-align:center;min-height:18px}
+
+/* ── CHRONO ── */
+#chrono-wrap{display:flex;flex-direction:column;align-items:center;gap:20px;width:100%;max-width:340px;padding-top:8px}
+.ring-box{position:relative;display:flex;align-items:center;justify-content:center}
+#ring-svg{display:block}
+#ttext{position:absolute;text-align:center;pointer-events:none;user-select:none}
+#tnum{font-size:3.8rem;font-weight:900;line-height:1}
+#tstat{font-size:.8rem;color:#94a3b8;margin-top:6px}
+.chrono-btns{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.btn-go{background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff;border:none;border-radius:13px;padding:13px 36px;font-size:.95rem;font-weight:900;cursor:pointer;transition:.2s;min-width:150px}
+.btn-go:hover{filter:brightness(1.1)}
+.btn-go.paused{background:linear-gradient(135deg,#f59e0b,#d97706)}
+.btn-creset{background:#1e293b;color:#94a3b8;border:1px solid #334;border-radius:13px;padding:13px 18px;font-size:.95rem;font-weight:900;cursor:pointer;transition:.2s}
+.btn-creset:hover{background:#334155;color:#fff}
+</style>
+</head>
+<body>
+
+<div id="hdr">
+  <a href="Portail_Canicule.html">&#8592; Portail</a>
+  <h1>&#x1F170;&#xFE0F; Petit Bac</h1>
+  <span style="width:70px"></span>
+</div>
+
+<div id="tab-nav">
+  <button class="tnav on"  onclick="showTab('pts',this)">&#x1F3C6; Points</button>
+  <button class="tnav"     onclick="showTab('roue',this)">&#x1F3A1; Roue</button>
+  <button class="tnav"     onclick="showTab('chrono',this)">&#x23F1;&#xFE0F; Chrono</button>
+</div>
+
+<!-- POINTS -->
+<section class="sec on" id="sec-pts">
+  <div class="teams-grid" id="teams-grid"></div>
+  <button class="btn-sec" onclick="resetScores()">&#x21BA; Remettre les scores &#x00E0; z&#x00E9;ro</button>
+</section>
+
+<!-- ROUE -->
+<section class="sec" id="sec-roue">
+  <div id="roue-wrap">
+    <canvas id="wcanvas" width="380" height="400"></canvas>
+    <div id="chosen-ltr">?</div>
+    <div id="roue-msg">20 lettres &#x2014; aucune r&#x00E9;p&#x00E9;tition avant &#x00E9;puisement !</div>
+    <div class="roue-btns">
+      <button class="btn-spin" id="spin-btn" onclick="spin()">&#x1F3B2; Tourner !</button>
+      <button class="btn-rspin" onclick="resetWheel()">&#x267B;&#xFE0F; Reset</button>
+    </div>
+    <div id="lgrid"></div>
+  </div>
+</section>
+
+<!-- CHRONO -->
+<section class="sec" id="sec-chrono">
+  <div id="chrono-wrap">
+    <div class="ring-box">
+      <svg id="ring-svg" width="220" height="220" viewBox="0 0 220 220">
+        <circle cx="110" cy="110" r="90" fill="none" stroke="#1a1a2e" stroke-width="20"/>
+        <circle id="tring" cx="110" cy="110" r="90" fill="none"
+                stroke="#22c55e" stroke-width="20"
+                stroke-dasharray="565" stroke-dashoffset="0"
+                stroke-linecap="round"
+                transform="rotate(-90 110 110)"/>
+      </svg>
+      <div id="ttext">
+        <div id="tnum">60</div>
+        <div id="tstat">Pr&#x00EA;t !</div>
+      </div>
+    </div>
+    <div class="chrono-btns">
+      <button class="btn-go" id="btn-go" onclick="toggleTimer()">&#x25B6; D&#x00E9;marrer</button>
+      <button class="btn-creset" onclick="resetTimer()">&#x21BA; Reset</button>
+    </div>
+  </div>
+</section>
+
+<script>
+/* ========== TABS ========== */
+function showTab(id, btn) {
+  document.querySelectorAll('.sec').forEach(function(s){ s.classList.remove('on'); });
+  document.querySelectorAll('.tnav').forEach(function(b){ b.classList.remove('on'); });
+  document.getElementById('sec-' + id).classList.add('on');
+  btn.classList.add('on');
+  if (id === 'roue') { drawWheel(wheelAngle); }
+}
+
+/* ========== POINTS ========== */
+var COLORS = ['#ef4444','#3b82f6','#22c55e','#f59e0b'];
+var scores = [0,0,0,0];
+
+function buildTeams() {
+  var g = document.getElementById('teams-grid');
+  var html = '';
+  for (var i = 0; i < 4; i++) {
+    var name = 'Equipe ' + (i + 1);
+    html += '<div class="tc" style="border-color:' + COLORS[i] + '33">' +
+      '<div style="display:flex;align-items:center;gap:8px">' +
+        '<div class="tdot" style="background:' + COLORS[i] + '"></div>' +
+        '<div class="tname" contenteditable="true" id="tn' + i + '" style="color:' + COLORS[i] + '">' + name + '</div>' +
+      '</div>' +
+      '<div class="tscore" id="sc' + i + '" style="color:' + COLORS[i] + '">0</div>' +
+      '<div class="sbtns">' +
+        '<button class="sb sbm" onclick="addScore(' + i + ',-1)">&#x2212;</button>' +
+        '<button class="sb sbp" onclick="addScore(' + i + ',1)">+</button>' +
+      '</div>' +
+    '</div>';
+  }
+  g.innerHTML = html;
+}
+
+function addScore(i, delta) {
+  scores[i] = Math.max(0, scores[i] + delta);
+  document.getElementById('sc' + i).textContent = scores[i];
+}
+
+function resetScores() {
+  for (var i = 0; i < 4; i++) {
+    scores[i] = 0;
+    document.getElementById('sc' + i).textContent = 0;
+  }
+}
+
+buildTeams();
+
+/* ========== ROUE ========== */
+var LETTRES = 'ABCDEFGHIJKLMNOPRSTV';
+var N = LETTRES.length;
+var SLICE_RAD = 2 * Math.PI / N;
+var PAL = ['#e74c3c','#e67e22','#f1c40f','#2ecc71','#1abc9c',
+           '#3498db','#9b59b6','#e91e63','#ff5722','#00bcd4',
+           '#8bc34a','#ff9800','#607d8b','#e74c3c','#3498db',
+           '#2ecc71','#9b59b6','#f39c12','#16a085','#c0392b'];
+var USED_FILL = '#111827';
+var canvas = document.getElementById('wcanvas');
+var ctx = canvas.getContext('2d');
+var CX = 190, CY = 212, R = 165;
+
+var wheelAngle = 0;
+var isAnim = false;
+var animFrom = 0, animTo = 0, animT0 = 0;
+var pendingIdx = -1;
+var usedSet = new Set();
+
+function drawWheel(angle) {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  for (var i = 0; i < N; i++) {
+    var sa = angle + i * SLICE_RAD - Math.PI / 2;
+    var ea = sa + SLICE_RAD;
+    var used = usedSet.has(i);
+
+    ctx.beginPath();
+    ctx.moveTo(CX, CY);
+    ctx.arc(CX, CY, R, sa, ea);
+    ctx.closePath();
+    ctx.fillStyle = used ? USED_FILL : PAL[i];
+    ctx.fill();
+    ctx.strokeStyle = '#0a0a18';
+    ctx.lineWidth = 2.5;
+    ctx.stroke();
+
+    var mid = sa + SLICE_RAD / 2;
+    var tr = R * 0.71;
+    var tx = CX + tr * Math.cos(mid);
+    var ty = CY + tr * Math.sin(mid);
+
+    ctx.save();
+    ctx.translate(tx, ty);
+    ctx.fillStyle = used ? '#2d3555' : '#fff';
+    ctx.font = 'bold 14px Segoe UI, Arial';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(LETTRES[i], 0, 0);
+    ctx.restore();
+  }
+
+  /* outer ring */
+  ctx.beginPath();
+  ctx.arc(CX, CY, R + 4, 0, Math.PI * 2);
+  ctx.strokeStyle = '#2a3a5a';
+  ctx.lineWidth = 4;
+  ctx.stroke();
+
+  /* center disc */
+  ctx.beginPath();
+  ctx.arc(CX, CY, 26, 0, Math.PI * 2);
+  ctx.fillStyle = '#0f0f23';
+  ctx.fill();
+  ctx.strokeStyle = '#2a3a5a';
+  ctx.lineWidth = 2;
+  ctx.stroke();
+
+  /* fixed pointer: triangle at top, pointing down */
+  var px = CX, py = CY - R - 6;
+  ctx.beginPath();
+  ctx.moveTo(px, py + 20);
+  ctx.lineTo(px - 13, py);
+  ctx.lineTo(px + 13, py);
+  ctx.closePath();
+  ctx.fillStyle = '#f59e0b';
+  ctx.fill();
+  ctx.strokeStyle = '#0a0a18';
+  ctx.lineWidth = 2;
+  ctx.stroke();
+}
+
+function buildLGrid() {
+  var g = document.getElementById('lgrid');
+  var html = '';
+  for (var i = 0; i < N; i++) {
+    html += '<div class="ll ' + (usedSet.has(i) ? 'used' : 'avail') + '">' + LETTRES[i] + '</div>';
+  }
+  g.innerHTML = html;
+  var rem = N - usedSet.size;
+  document.getElementById('roue-msg').textContent = rem > 0
+    ? rem + ' lettre' + (rem > 1 ? 's' : '') + ' restante' + (rem > 1 ? 's' : '') + ' sur ' + N
+    : 'Toutes les lettres tirées ! Cliquez Reset.';
+}
+
+function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+
+function animStep(ts) {
+  if (!isAnim) return;
+  var t = Math.min((ts - animT0) / 3400, 1);
+  wheelAngle = animFrom + (animTo - animFrom) * easeOut(t);
+  drawWheel(wheelAngle);
+  if (t < 1) {
+    requestAnimationFrame(animStep);
+  } else {
+    wheelAngle = animTo;
+    isAnim = false;
+    usedSet.add(pendingIdx);
+    document.getElementById('chosen-ltr').textContent = LETTRES[pendingIdx];
+    buildLGrid();
+    document.getElementById('spin-btn').disabled = false;
+  }
+}
+
+function spin() {
+  if (isAnim) return;
+  var pool = [];
+  for (var i = 0; i < N; i++) { if (!usedSet.has(i)) pool.push(i); }
+  if (pool.length === 0) { resetWheel(); return; }
+
+  var chosenIdx = pool[Math.floor(Math.random() * pool.length)];
+  pendingIdx = chosenIdx;
+
+  var target = -(chosenIdx + 0.5) * SLICE_RAD;
+  var minSpin = wheelAngle + 5 * 2 * Math.PI;
+  while (target < minSpin) target += 2 * Math.PI;
+
+  animFrom = wheelAngle;
+  animTo   = target;
+  animT0   = performance.now();
+  isAnim   = true;
+
+  document.getElementById('spin-btn').disabled = true;
+  document.getElementById('chosen-ltr').textContent = '...';
+  requestAnimationFrame(animStep);
+}
+
+function resetWheel() {
+  if (isAnim) return;
+  usedSet.clear();
+  document.getElementById('chosen-ltr').textContent = '?';
+  buildLGrid();
+  drawWheel(wheelAngle);
+}
+
+drawWheel(wheelAngle);
+buildLGrid();
+
+/* ========== CHRONO ========== */
+var TOTAL  = 60;
+var CIRC   = 2 * Math.PI * 90;
+var timeLeft = TOTAL;
+var running  = false;
+var timerRef = null;
+
+document.getElementById('tring').style.strokeDasharray = CIRC;
+
+function updateRing() {
+  var p      = timeLeft / TOTAL;
+  var offset = CIRC * (1 - p);
+  var ring   = document.getElementById('tring');
+  ring.style.strokeDashoffset = offset;
+  var col = p > 0.5 ? '#22c55e' : p > 0.25 ? '#f39c12' : '#ef4444';
+  ring.style.stroke = col;
+  document.getElementById('tnum').textContent = timeLeft;
+  document.getElementById('ring-svg').style.filter = 'drop-shadow(0 0 18px ' + col + '55)';
+}
+
+function beep(n) {
+  try {
+    var ac = new (window.AudioContext || window.webkitAudioContext)();
+    for (var k = 0; k < n; k++) {
+      var osc  = ac.createOscillator();
+      var gain = ac.createGain();
+      osc.connect(gain);
+      gain.connect(ac.destination);
+      osc.frequency.value = 880;
+      osc.type = 'sine';
+      var t = ac.currentTime + k * 0.35;
+      gain.gain.setValueAtTime(0.5, t);
+      gain.gain.exponentialRampToValueAtTime(0.001, t + 0.28);
+      osc.start(t);
+      osc.stop(t + 0.28);
+    }
+  } catch(e) {}
+}
+
+function toggleTimer() {
+  if (timeLeft === 0) { resetTimer(); return; }
+  if (running) {
+    clearInterval(timerRef); timerRef = null; running = false;
+    document.getElementById('btn-go').textContent = '\u25B6 Reprendre';
+    document.getElementById('btn-go').classList.add('paused');
+    document.getElementById('tstat').textContent = 'En pause';
+  } else {
+    running = true;
+    document.getElementById('btn-go').textContent = '\u23F8 Pause';
+    document.getElementById('btn-go').classList.remove('paused');
+    document.getElementById('tstat').textContent = 'En cours\u2026';
+    timerRef = setInterval(function() {
+      timeLeft--;
+      updateRing();
+      if (timeLeft <= 0) {
+        clearInterval(timerRef); timerRef = null; running = false;
+        document.getElementById('tnum').textContent = '\u23F0';
+        document.getElementById('tstat').textContent = 'Temps \u00E9coul\u00E9 !';
+        document.getElementById('btn-go').textContent = '\u25B6 D\u00E9marrer';
+        document.getElementById('btn-go').classList.remove('paused');
+        beep(3);
+      }
+    }, 1000);
+  }
+}
+
+function resetTimer() {
+  clearInterval(timerRef); timerRef = null; running = false;
+  timeLeft = TOTAL;
+  updateRing();
+  document.getElementById('btn-go').textContent = '\u25B6 D\u00E9marrer';
+  document.getElementById('btn-go').classList.remove('paused');
+  document.getElementById('tstat').textContent = 'Pr\u00EAt !';
+}
+
+updateRing();
+</script>
+</body>
+</html>

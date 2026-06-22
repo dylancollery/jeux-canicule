@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>☀️ Jeux Spéciale Canicule — CM2</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700;900&display=swap');
+body{font-family:'Nunito',Arial,sans-serif;background:#0f0f23;color:#fff;min-height:100vh;}
+
+/* ── HEADER ── */
+header{
+  background:linear-gradient(135deg,#ff6b35,#f7c59f,#ffe66d);
+  padding:30px 24px 24px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+header::before{
+  content:'☀️';
+  position:absolute;top:-20px;right:40px;
+  font-size:120pt;opacity:.15;transform:rotate(15deg);
+}
+header h1{
+  font-family:'Fredoka One','Nunito',sans-serif;
+  font-size:32pt;
+  color:#1a1a2e;
+  text-shadow:2px 2px 0 rgba(255,255,255,.4);
+}
+header p{font-size:12pt;color:#1a1a2e;margin-top:6px;opacity:.8;}
+.weather-bar{
+  display:flex;gap:16px;justify-content:center;margin-top:14px;flex-wrap:wrap;
+}
+.wb{background:rgba(26,26,46,.15);border-radius:20px;padding:6px 16px;font-size:10pt;color:#1a1a2e;font-weight:bold;}
+
+/* ── SUBTITLE ── */
+.subtitle{text-align:center;padding:24px 16px 8px;font-size:13pt;color:#f1c40f;font-weight:bold;}
+
+/* ── GRID ── */
+.games-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:20px;
+  padding:16px 24px 40px;
+  max-width:1200px;
+  margin:0 auto;
+}
+
+.game-card{
+  background:linear-gradient(160deg,#1a1a2e,#16213e);
+  border-radius:18px;
+  overflow:hidden;
+  border:2px solid transparent;
+  transition:.25s;
+  display:flex;
+  flex-direction:column;
+  cursor:pointer;
+  text-decoration:none;
+  color:inherit;
+}
+.game-card:hover{transform:translateY(-6px);box-shadow:0 12px 32px rgba(0,0,0,.5);}
+
+.card-banner{
+  padding:28px 20px 20px;
+  text-align:center;
+  font-size:54pt;
+  line-height:1;
+}
+.card-body{padding:0 18px 18px;flex:1;display:flex;flex-direction:column;gap:8px;}
+.card-title{font-size:16pt;font-weight:900;}
+.card-desc{font-size:9.5pt;color:#bbb;line-height:1.5;flex:1;}
+.card-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;}
+.tag{padding:3px 10px;border-radius:12px;font-size:8pt;font-weight:bold;}
+.tag-new{background:#e74c3c;color:#fff;}
+.tag-teams{background:#3498db;color:#fff;}
+.tag-projector{background:#9b59b6;color:#fff;}
+.tag-level{background:#2ecc71;color:#fff;}
+.card-play{
+  display:block;
+  background:inherit;
+  border:none;
+  border-top:1px solid rgba(255,255,255,.1);
+  padding:14px;
+  text-align:center;
+  font-size:12pt;
+  font-weight:900;
+  color:#fff;
+  cursor:pointer;
+  transition:.2s;
+  text-decoration:none;
+}
+.card-play:hover{background:rgba(255,255,255,.08);}
+
+/* Individual card colors */
+.c-pictionary{border-color:#e74c3c;}
+.c-pictionary .card-banner{background:linear-gradient(135deg,#c0392b,#e74c3c);}
+.c-pictionary .card-play{background:linear-gradient(90deg,#c0392b,#e74c3c);}
+
+.c-petitbac{border-color:#8e44ad;}
+.c-petitbac .card-banner{background:linear-gradient(135deg,#6c3483,#8e44ad);}
+.c-petitbac .card-play{background:linear-gradient(90deg,#6c3483,#8e44ad);}
+
+.c-loie{border-color:#f39c12;}
+.c-loie .card-banner{background:linear-gradient(135deg,#d68910,#f39c12);}
+.c-loie .card-play{background:linear-gradient(90deg,#d68910,#f39c12);}
+
+.c-quiz{border-color:#3498db;}
+.c-quiz .card-banner{background:linear-gradient(135deg,#2471a3,#3498db);}
+.c-quiz .card-play{background:linear-gradient(90deg,#2471a3,#3498db);}
+
+.c-escape{border-color:#1abc9c;}
+.c-escape .card-banner{background:linear-gradient(135deg,#148f77,#1abc9c);}
+.c-escape .card-play{background:linear-gradient(90deg,#148f77,#1abc9c);}
+
+footer{
+  background:#0a0a18;
+  padding:16px;
+  text-align:center;
+  font-size:9pt;
+  color:#555;
+  border-top:1px solid #1a1a2e;
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>☀️ Jeux Spéciale Canicule</h1>
+  <p>Demi-journée jeux — Classe CM2 · Sélectionnez un jeu !</p>
+  <div class="weather-bar">
+    <span class="wb">🌡️ On joue ensemble !</span>
+    <span class="wb">🎮 4 jeux disponibles</span>
+    <span class="wb">👥 Jeux en équipes</span>
+    <span class="wb">🏆 Score en direct</span>
+  </div>
+</header>
+
+<div class="subtitle">🎯 Choisissez votre jeu !</div>
+
+<div class="games-grid">
+
+  <!-- PICTIONARY -->
+  <a class="game-card c-pictionary" href="Pictionary_Canicule.html" target="_blank">
+    <div class="card-banner">🎨</div>
+    <div class="card-body">
+      <div class="card-title">Pictionary</div>
+      <div class="card-desc">Un dessinateur, une équipe qui devine ! Tirez un mot, dessinez en 45 secondes sans écrire ni parler. Mots par niveau : CP/CE1, CE2/CM1, CM1/CM2.</div>
+      <div class="card-tags">
+        <span class="tag tag-new">✨ Nouveau</span>
+        <span class="tag tag-teams">👥 Équipes</span>
+        <span class="tag tag-level">🔵🟢🟣 3 niveaux</span>
+      </div>
+    </div>
+    <div class="card-play">🎨 Jouer →</div>
+  </a>
+
+  <!-- PETIT BAC -->
+  <a class="game-card c-petitbac" href="PetitBac_Canicule.html" target="_blank">
+    <div class="card-banner">🅰️</div>
+    <div class="card-body">
+      <div class="card-title">Petit Bac</div>
+      <div class="card-desc">Tirez une lettre au hasard, remplissez toutes les catégories (animal, prénom, ville, pays, objet, plante, métier) avant la fin du chrono ! 45 secondes chrono.</div>
+      <div class="card-tags">
+        <span class="tag tag-new">✨ Nouveau</span>
+        <span class="tag tag-teams">👥 Équipes</span>
+        <span class="tag tag-level">🟡 CP à CM2</span>
+      </div>
+    </div>
+    <div class="card-play">🅰️ Jouer →</div>
+  </a>
+
+  <!-- JEU DE L'OIE -->
+  <a class="game-card c-loie" href="Jeu_de_lOie_Canicule.html" target="_blank">
+    <div class="card-banner">🎲</div>
+    <div class="card-body">
+      <div class="card-title">Jeu de l'Oie</div>
+      <div class="card-desc">Le grand classique ! Lancez le dé, avancez, répondez aux questions de révision. Mode Facile (CE) et Difficile (CM). De 1 à 5 joueurs / équipes.</div>
+      <div class="card-tags">
+        <span class="tag tag-teams">👥 Équipes</span>
+        <span class="tag tag-projector">📺 Projecteur</span>
+        <span class="tag tag-level">🟡 CE à CM</span>
+      </div>
+    </div>
+    <div class="card-play">🎲 Jouer →</div>
+  </a>
+
+  <!-- QUIZ PAR CYCLES -->
+  <a class="game-card c-quiz" href="Quiz_Cycles_Canicule.html" target="_blank">
+    <div class="card-banner">🧠</div>
+    <div class="card-body">
+      <div class="card-title">Quiz Ardoise — Par Cycles</div>
+      <div class="card-desc">Questions par niveau et par matière ! Choisissez votre cycle (CP/CE1, CE2, CM1/CM2) puis Maths ou Français. Chaque élève répond sur ardoise. Basé sur les attendus de fin de cycle.</div>
+      <div class="card-tags">
+        <span class="tag tag-new">✨ Niveaux</span>
+        <span class="tag tag-teams">👥 Classe entière</span>
+        <span class="tag tag-projector">📺 Projecteur</span>
+      </div>
+    </div>
+    <div class="card-play">🧠 Jouer →</div>
+  </a>
+
+
+</div>
+
+<footer>☀️ Jeux Spéciale Canicule · Demi-journée classe · Tous les jeux se jouent en équipes</footer>
+</body>
+</html>
